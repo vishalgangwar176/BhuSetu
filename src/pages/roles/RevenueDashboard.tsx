@@ -44,10 +44,10 @@ export const RevenueDashboard: React.FC = () => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const pendingApprovals = parcels.filter(p => p.status === 'in_review');
+  const pendingApprovals = parcels.filter(p => p.status === 'needs_review');
   const verifiedCount = parcels.filter(p => p.status === 'verified').length;
   const areaMismatches = parcels.filter(p => p.areaDeltaPercent > 5);
-  const disputedParcels = parcels.filter(p => p.status === 'disputed');
+  const disputedParcels = parcels.filter(p => p.status === 'conflict');
   const activeMutations = mutationRecords.filter(m => m.status !== 'Sanctioned');
 
   const discrepancyChartData = parcels
@@ -672,7 +672,7 @@ export const RevenueDashboard: React.FC = () => {
                       <span className={`inline-block px-1.5 py-0.5 rounded-[2px] border text-[11px] font-medium ${
                         p.status === 'verified'
                           ? 'border-[#2E7D32]/40 text-[#2E7D32] dark:text-[#4FA37A]'
-                          : p.status === 'disputed'
+                          : p.status === 'conflict'
                           ? 'border-[#C4584F]/40 text-[#C62828] dark:text-[#C4584F]'
                           : 'border-[#B78103]/40 text-[#B78103] dark:text-[#C99A3C]'
                       }`}>

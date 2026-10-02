@@ -223,12 +223,15 @@ export interface SurveyorTask {
   taskType: 'Ground Truth Verification' | 'Boundary Conflict Audit' | 'New Construction Check' | 'Encroachment Inspection';
   coordinates: [number, number];
   instructions: string;
+  issueReason?: string;
+  targetArea?: string;
+  assignedDate?: string;
   submittedData?: {
     verifiedDate: string;
     gnssLatitude: number;
     gnssLongitude: number;
     accuracyCm: number;
-    boundaryAction: 'Accepted AI Boundary' | 'Adjusted Physical Boundary';
+    boundaryAction: 'Accepted AI Boundary' | 'Adjusted Physical Boundary' | string;
     fieldRemarks: string;
     photoAttached: boolean;
   };

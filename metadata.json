@@ -1,6 +1,1 @@
-{
-  "name": "BhuSetu – AI Geospatial Integration Platform",
-  "description": "National Urban Land Record Management Platform for Automated Multi-Source Geospatial Harmonization. Aligned with the NAKSHA Programme, Department of Land Resources.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
+{"name":"BhuSetu – AI Geospatial Integration Platform","description":"National Urban Land Record Management Platform for Automated Multi-Source Geospatial Harmonization. Aligned with the NAKSHA Programme, Department of Land Resources.","requestFramePermissions":[],"majorCapabilities":["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]}

@@ -5,16 +5,23 @@ import { useApp } from '../../context/AppContext';
 interface MiniMapProps {
   height?: string;
   focusPoint?: [number, number];
+  center?: [number, number] | number[];
   zoom?: number;
   highlightParcelId?: string;
+  markerTitle?: string;
 }
 
 export const MiniMap: React.FC<MiniMapProps> = ({
   height = '240px',
   focusPoint = [12.9716, 77.6412],
+  center,
   zoom = 15,
-  highlightParcelId
+  highlightParcelId,
+  markerTitle
 }) => {
+  const effectiveCenter: [number, number] = (center && center.length >= 2) 
+    ? [center[0], center[1]] 
+    : focusPoint;
   const { parcels, isDarkMode } = useApp();
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -24,7 +31,7 @@ export const MiniMap: React.FC<MiniMapProps> = ({
     if (mapRef.current) return;
 
     const map = L.map(mapContainerRef.current, {
-      center: focusPoint,
+      center: effectiveCenter,
       zoom: zoom,
       zoomControl: false,
       attributionControl: false,

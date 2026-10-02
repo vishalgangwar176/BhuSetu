@@ -84,7 +84,8 @@ export const PublicPortalPage: React.FC = () => {
     if (!surveyInput || !description) return;
 
     submitPublicGrievance({
-      surveyNo: surveyInput,
+      khasraOrSurveyNo: surveyInput,
+      ward: 'Ward 142 Indiranagar',
       issueType: issueType,
       citizenName: citizenName || 'Citizen Applicant',
       citizenContact: citizenPhone || 'Not provided',
@@ -459,10 +460,10 @@ export const PublicPortalPage: React.FC = () => {
               {MOCK_PUBLIC_FAQS.map((faq, idx) => (
                 <div key={idx} className="py-3">
                   <div className="font-semibold text-xs text-[#1B1F23] dark:text-[#E8EAED] mb-1">
-                    {faq.question}
+                    {faq.q || (faq as any).question}
                   </div>
                   <div className="text-xs text-[#4A5568] dark:text-[#AEB4BB] leading-relaxed">
-                    {faq.answer}
+                    {faq.a || (faq as any).answer}
                   </div>
                 </div>
               ))}

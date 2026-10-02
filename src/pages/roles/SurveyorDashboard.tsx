@@ -251,11 +251,11 @@ export const SurveyorDashboard: React.FC = () => {
                     Survey No. {task.surveyNo} · {task.priority} Priority
                   </h3>
                   <p className="text-[11px] text-[#4A5568] dark:text-[#AEB4BB] mt-0.5">
-                    Issue: {task.issueReason}
+                    Issue: {task.issueReason || task.instructions}
                   </p>
                   <div className="mt-2 text-[11px] text-[#718096] dark:text-[#7D858E] flex justify-between font-mono">
-                    <span>Target: {task.targetArea}</span>
-                    <span>Assigned: {task.assignedDate}</span>
+                    <span>Target: {task.targetArea || task.address}</span>
+                    <span>Due: {task.assignedDate || task.dueTime}</span>
                   </div>
                 </div>
               );

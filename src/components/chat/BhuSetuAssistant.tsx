@@ -146,7 +146,7 @@ export const BhuSetuAssistant: React.FC<BhuSetuAssistantProps> = ({ currentPageN
           {selectedParcel && (
             <div className="px-3 py-1.5 bg-[#F4F5F7] dark:bg-[#121417] border-b border-[#D5D9DE] dark:border-[#2F343A] text-[11px] text-[#4A5568] dark:text-[#AEB4BB] flex items-center justify-between">
               <span>Active Subject: <strong>Survey No. {selectedParcel.surveyNo}</strong> ({selectedParcel.khasraNo})</span>
-              <span className="font-semibold text-[#1B1F23] dark:text-[#E8EAED]">{selectedParcel.deedAreaSqM} m²</span>
+              <span className="font-semibold text-[#1B1F23] dark:text-[#E8EAED]">{selectedParcel.recordAreaSqM} m²</span>
             </div>
           )}
 
