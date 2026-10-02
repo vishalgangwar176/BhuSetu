@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-page: #F4F5F7;
+    --bg-surface: #FFFFFF;
+    --bg-raised: #E9ECF0;
+    --border-main: #D5D9DE;
+    --text-primary: #1B1F23;
+    --text-secondary: #4A5568;
+    --text-muted: #718096;
+    --primary-action: #1F4E8C;
+    --primary-action-hover: #163A68;
+    --accent-gold: #9E782F;
+    --link-color: #1F4E8C;
+    --status-success: #2E7D32;
+    --status-warning: #B78103;
+    --status-danger: #C62828;
+    --status-info: #1565C0;
+  }
+
+  .dark {
+    --bg-page: #121417;
+    --bg-surface: #1A1D21;
+    --bg-raised: #22262B;
+    --border-main: #2F343A;
+    --text-primary: #E8EAED;
+    --text-secondary: #AEB4BB;
+    --text-muted: #7D858E;
+    --primary-action: #3F7CC4;
+    --primary-action-hover: #3265A1;
+    --accent-gold: #C9A24B;
+    --link-color: #7FB0E8;
+    --status-success: #4FA37A;
+    --status-warning: #C99A3C;
+    --status-danger: #C4584F;
+    --status-info: #5C8FCB;
+  }
+
+  html {
+    font-size: 100%;
+  }
+
+  body {
+    font-family: 'Noto Sans', 'Source Sans 3', Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* GIGW Accessible Focus Ring */
+  :focus-visible {
+    outline: 2px solid var(--accent-gold) !important;
+    outline-offset: 2px !important;
+  }
+}
+
+/* Leaflet Map Neutral Dark Matter Container */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  font-family: inherit;
+  background-color: #121417;
+}
+
+.dark .leaflet-tile {
+  filter: brightness(0.85) contrast(1.1) grayscale(0.2);
+}
+
+/* Flat, square scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 0px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #2F343A;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3F4650;
+}

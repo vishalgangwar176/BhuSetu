@@ -1,0 +1,278 @@
+/* ==========================================================================
+   BhuSetu National Cadastral Platform - Official Government Print Stylesheet
+   Standards: Directorate of Printing / GIGW 3.0 Administrative Reporting
+   Paper Targets: Standard ISO A4 (210mm x 297mm) and Legal (8.5in x 14in)
+   ========================================================================== */
+
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+
+@media print {
+  /* 1. Page Setup & Document Geometry */
+  @page {
+    size: A4 portrait;
+    margin: 15mm 12mm 15mm 12mm;
+  }
+
+  @page landscape-report {
+    size: A4 landscape;
+    margin: 12mm 10mm 12mm 10mm;
+  }
+
+  /* 2. Global Document Reset for High-Contrast Black & White Printing */
+  *,
+  *::before,
+  *::after {
+    color: #000000 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #000000 !important;
+    outline: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html,
+  body {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    font-family: 'Noto Sans', 'Source Sans 3', Arial, 'DejaVu Sans', serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* 3. Hide Interactive Navigational Shell & Floating UI Elements */
+  header,
+  nav,
+  aside,
+  footer,
+  [aria-label="Sidebar navigation"],
+  [aria-label="Open Help Assistant"],
+  [aria-label="Geospatial Layer Control Panel"],
+  [role="dialog"][aria-labelledby="help-assistant-title"],
+  .fixed.bottom-6,
+  button,
+  input,
+  select,
+  textarea,
+  .toast-container,
+  .no-print,
+  .print-hide {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 4. Display Elements Dedicated Exclusively to Official Print */
+  .print-only {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* 5. Main Content Area Optimization */
+  #root,
+  .min-h-screen,
+  main,
+  #main-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+    position: static !important;
+  }
+
+  /* Remove flex/grid constraints causing truncation during printing */
+  .overflow-hidden,
+  .overflow-y-auto,
+  .overflow-x-auto {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+
+  .flex-1 {
+    flex: none !important;
+    width: 100% !important;
+  }
+
+  /* 6. Typography & Headings for Government Reports */
+  h1 {
+    font-size: 15pt !important;
+    font-weight: 700 !important;
+    margin-bottom: 4pt !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  h2 {
+    font-size: 13pt !important;
+    font-weight: 700 !important;
+    margin-top: 10pt !important;
+    margin-bottom: 4pt !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    border-bottom: 1pt solid #000000 !important;
+    padding-bottom: 2pt !important;
+  }
+
+  h3 {
+    font-size: 11pt !important;
+    font-weight: 600 !important;
+    margin-top: 8pt !important;
+    margin-bottom: 3pt !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  p {
+    font-size: 9.5pt !important;
+    margin-bottom: 4pt !important;
+    orphans: 3 !important;
+    widows: 3 !important;
+  }
+
+  /* 7. Tables Optimization (Data-FirstNIC / Gazette Style) */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    margin-top: 6pt !important;
+    margin-bottom: 12pt !important;
+    font-size: 8.5pt !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    border: 1pt solid #000000 !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  th {
+    background-color: #E5E5E5 !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+    text-align: left !important;
+    padding: 4pt 6pt !important;
+    border: 1pt solid #000000 !important;
+    text-transform: uppercase !important;
+    font-size: 8pt !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  td {
+    padding: 4pt 6pt !important;
+    border: 0.5pt solid #555555 !important;
+    color: #000000 !important;
+    vertical-align: middle !important;
+  }
+
+  /* Zebra striping converted to subtle grayscale for ink-saver printing */
+  tbody tr:nth-child(even) td {
+    background-color: #F8F8F8 !important;
+  }
+
+  /* 8. Data Cards & Summary Panels */
+  .border,
+  .rounded-\[4px\],
+  .rounded-xl,
+  .rounded-2xl {
+    border: 1pt solid #333333 !important;
+    border-radius: 0 !important;
+    background-color: #FFFFFF !important;
+  }
+
+  /* "At a glance" 5-column summary strip */
+  .divide-x,
+  .divide-y {
+    border-color: #000000 !important;
+  }
+
+  /* 9. Interactive Map Printing (High-contrast B&W / Grayscale Cartography) */
+  .leaflet-container {
+    width: 100% !important;
+    height: 180mm !important;
+    max-height: 200mm !important;
+    border: 1.5pt solid #000000 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #FFFFFF !important;
+  }
+
+  .leaflet-tile {
+    filter: grayscale(100%) contrast(150%) brightness(105%) !important;
+    opacity: 0.8 !important;
+  }
+
+  .leaflet-control-container,
+  .leaflet-control-zoom,
+  .leaflet-control-attribution,
+  .leaflet-draw {
+    display: none !important;
+  }
+
+  /* Make parcel boundaries sharp and prominent in monochrome */
+  path.leaflet-interactive {
+    stroke: #000000 !important;
+    stroke-width: 2pt !important;
+    fill-opacity: 0.15 !important;
+  }
+
+  /* 10. Links and Gazette References */
+  a[href^="http"]:not(.no-print-link)::after {
+    content: "" !important; /* Keep tables uncluttered from verbose URL dumps */
+  }
+
+  /* 11. Official Gazette Footer on Every Printed Page */
+  .official-print-footer {
+    display: block !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    font-size: 7.5pt !important;
+    color: #444444 !important;
+    border-top: 0.5pt solid #000000 !important;
+    padding-top: 3pt !important;
+    text-align: center !important;
+  }
+
+  /* 12. Page Breaks Control */
+  .page-break-before {
+    page-break-before: always !important;
+    break-before: always !important;
+  }
+
+  .page-break-after {
+    page-break-after: always !important;
+    break-after: always !important;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}

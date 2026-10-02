@@ -1,0 +1,228 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role-based permissions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["revenue_officer", "field_surveyor", "system_admin", "public_viewer"] },
+        "theme": { "type": "string", "enum": ["light", "dark", "system"] },
+        "status": { "type": "string", "enum": ["Active", "Inactive"] },
+        "department": { "type": "string" },
+        "lastLogin": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "Parcel": {
+      "title": "Parcel",
+      "description": "Harmonized cadastral urban land parcel",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "surveyNo": { "type": "string" },
+        "plotNo": { "type": "string" },
+        "khasraNo": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "landUse": { "type": "string" },
+        "deedAreaSqM": { "type": "number" },
+        "measuredAreaSqM": { "type": "number" },
+        "confidenceScore": { "type": "number" },
+        "status": { "type": "string", "enum": ["verified", "needs_review", "conflict"] },
+        "coordinates": { "type": "array" },
+        "center": { "type": "array" }
+      },
+      "required": ["id", "surveyNo", "status", "coordinates"]
+    },
+    "Dataset": {
+      "title": "Dataset",
+      "description": "Geospatial data source metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "format": { "type": "string" },
+        "status": { "type": "string" },
+        "crs": { "type": "string" },
+        "recordCount": { "type": "number" }
+      },
+      "required": ["id", "name", "status"]
+    },
+    "PipelineRun": {
+      "title": "PipelineRun",
+      "description": "Execution records for automated harmonization steps",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "stepId": { "type": "number" },
+        "title": { "type": "string" },
+        "status": { "type": "string" },
+        "progress": { "type": "number" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "title", "status"]
+    },
+    "Conflict": {
+      "title": "Conflict",
+      "description": "Spatial overlap, gap, or area mismatch dispute",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "parcelId": { "type": "string" },
+        "surveyNo": { "type": "string" },
+        "conflictType": { "type": "string" },
+        "severity": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending Review", "Survey Dispatched", "Resolved", "Escalated"] },
+        "aiRecommendation": { "type": "string" },
+        "confidence": { "type": "number" }
+      },
+      "required": ["id", "parcelId", "status"]
+    },
+    "Approval": {
+      "title": "Approval",
+      "description": "Revenue officer mutation and approval actions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "parcelId": { "type": "string" },
+        "surveyNo": { "type": "string" },
+        "action": { "type": "string", "enum": ["Approved", "Rejected", "Survey Requested"] },
+        "officerId": { "type": "string" },
+        "officerName": { "type": "string" },
+        "remarks": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "parcelId", "action", "timestamp"]
+    },
+    "SurveyTask": {
+      "title": "SurveyTask",
+      "description": "Ground truthing task assigned to field surveyor",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "parcelId": { "type": "string" },
+        "surveyNo": { "type": "string" },
+        "assigneeId": { "type": "string" },
+        "priority": { "type": "string" },
+        "status": { "type": "string", "enum": ["Assigned", "In Progress", "Completed"] },
+        "submittedData": { "type": "object" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "parcelId", "status"]
+    },
+    "GNSSPoint": {
+      "title": "GNSSPoint",
+      "description": "Ground control and CORS observation points",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "elevation": { "type": "number" },
+        "crs": { "type": "string" },
+        "status": { "type": "string" },
+        "rmseX": { "type": "number" },
+        "rmseY": { "type": "number" }
+      },
+      "required": ["id", "name", "latitude", "longitude"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "System-wide immutable audit trail",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "user": { "type": "string" },
+        "role": { "type": "string" },
+        "action": { "type": "string" },
+        "target": { "type": "string" },
+        "ipAddress": { "type": "string" },
+        "details": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "user", "action"]
+    },
+    "IssueReport": {
+      "title": "IssueReport",
+      "description": "Citizen public grievance or field observation report",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "khasraOrSurveyNo": { "type": "string" },
+        "citizenName": { "type": "string" },
+        "citizenContact": { "type": "string" },
+        "issueType": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "submittedAt": { "type": "string" }
+      },
+      "required": ["id", "khasraOrSurveyNo", "status"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Conversation message in the BhuSetu AI assistant",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "model", "system"] },
+        "content": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "context": { "type": "object" },
+        "sources": { "type": "array" }
+      },
+      "required": ["id", "userId", "role", "content", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and RBAC role assignments"
+    },
+    "/parcels/{parcelId}": {
+      "schema": "Parcel",
+      "description": "Integrated urban land parcel records"
+    },
+    "/datasets/{datasetId}": {
+      "schema": "Dataset",
+      "description": "Multi-source GIS inputs metadata"
+    },
+    "/pipelineRuns/{runId}": {
+      "schema": "PipelineRun",
+      "description": "Geospatial engine execution logs"
+    },
+    "/conflicts/{conflictId}": {
+      "schema": "Conflict",
+      "description": "Spatial and attribute dispute resolutions"
+    },
+    "/approvals/{approvalId}": {
+      "schema": "Approval",
+      "description": "Officer mutation approvals and survey requests"
+    },
+    "/surveyTasks/{taskId}": {
+      "schema": "SurveyTask",
+      "description": "Field surveyor ground truthing tasks"
+    },
+    "/gnssPoints/{pointId}": {
+      "schema": "GNSSPoint",
+      "description": "CORS station and GNSS control coordinates"
+    },
+    "/auditLogs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Immutable security and audit trail"
+    },
+    "/issueReports/{reportId}": {
+      "schema": "IssueReport",
+      "description": "Citizen grievances and feedback"
+    },
+    "/chatHistory/{userId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "User chat history with BhuSetu Assistant"
+    }
+  }
+}

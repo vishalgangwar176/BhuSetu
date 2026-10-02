@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BhuSetu – National Geospatial Integration Platform</title>
+    <meta name="description" content="National Urban Land Record Management Platform for Automated Multi-Source Geospatial Harmonization. Aligned with the NAKSHA Programme, Department of Land Resources." />
+    <meta property="og:title" content="BhuSetu – National Geospatial Integration Platform" />
+    <meta property="og:description" content="National Urban Land Record Management Platform for Automated Multi-Source Geospatial Harmonization. Aligned with the NAKSHA Programme, Department of Land Resources." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('bhusetu_theme');
+          var isDark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+
+          var savedSize = localStorage.getItem('bhusetu_fontsize');
+          if (savedSize === 'small') {
+            document.documentElement.style.fontSize = '90%';
+          } else if (savedSize === 'large') {
+            document.documentElement.style.fontSize = '115%';
+          } else {
+            document.documentElement.style.fontSize = '100%';
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-[#F4F5F7] dark:bg-[#121417] text-[#1B1F23] dark:text-[#E8EAED] antialiased transition-colors duration-150">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,107 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasRole(role) {
+      return isSignedIn() && (
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && getUserData().role == role) ||
+        request.auth.token.role == role
+      );
+    }
+
+    function isAdmin() {
+      return hasRole('system_admin');
+    }
+
+    function isRevenueOfficer() {
+      return hasRole('revenue_officer') || isAdmin();
+    }
+
+    function isSurveyor() {
+      return hasRole('field_surveyor') || isAdmin();
+    }
+
+    // Users: readable by authenticated users and demo sessions, writable by user/admin
+    match /users/{userId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if isAdmin();
+    }
+
+    // Parcels: public read, write by revenue officer or admin
+    match /parcels/{parcelId} {
+      allow read: if true;
+      allow write: if isRevenueOfficer();
+    }
+
+    // Datasets: read by signed in, write by admin
+    match /datasets/{datasetId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Pipeline Runs
+    match /pipelineRuns/{runId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin() || isRevenueOfficer();
+    }
+
+    // Conflicts
+    match /conflicts/{conflictId} {
+      allow read: if isSignedIn();
+      allow write: if isRevenueOfficer();
+    }
+
+    // Approvals
+    match /approvals/{approvalId} {
+      allow read: if isSignedIn();
+      allow write: if isRevenueOfficer();
+    }
+
+    // Survey Tasks
+    match /surveyTasks/{taskId} {
+      allow read: if isSignedIn();
+      allow create: if isRevenueOfficer() || isAdmin();
+      allow update: if isSurveyor() || isRevenueOfficer() || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // GNSS Points
+    match /gnssPoints/{pointId} {
+      allow read: if true;
+      allow write: if isSurveyor();
+    }
+
+    // Audit Logs: readable by admin, appendable by authenticated users
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn();
+      allow update, delete: if false; // immutable audit log
+    }
+
+    // Issue Reports: public create, read by signed-in users
+    match /issueReports/{reportId} {
+      allow create: if true;
+      allow read: if isSignedIn();
+      allow update, delete: if isRevenueOfficer() || isAdmin();
+    }
+
+    // Chat History: subcollection per user
+    match /chatHistory/{userId}/messages/{messageId} {
+      allow read, write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    // Test connection doc
+    match /test/{docId} {
+      allow read: if true;
+    }
+  }
+}
